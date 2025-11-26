@@ -6,235 +6,199 @@
   <title>Gestión de Clientes — Nexus Pro</title>
   <link rel="stylesheet" href="css/clientes.css" />
   <link rel="stylesheet" href="css/dashboard.css" />
-  <!-- Incluir también el CSS del dashboard si es necesario -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <!-- Estructura del Dashboard -->
-  <div class="dashboard-layout">
-    
-    <!-- Sidebar (copiar del dashboard principal) -->
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <div class="sidebar-logo">
-          <i class="fas fa-code"></i>
-        </div>
-        <div class="sidebar-title">
-          <h2>Nexus Pro</h2>
-          <p>Freelance System</p>
-        </div>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header" onclick="irAlInicio()" title="Ir al Inicio">
+      <div class="sidebar-logo">
+        <img src="img/logo.png" alt="Nexus Pro Logo" class="logo-sidebar">
       </div>
+      <div class="sidebar-title">
+        <h2>Nexus Pro</h2>
+        <p>v.0.2.34</p>
+      </div>
+    </div>
 
-      <div class="sidebar-user">
-        <div class="user-avatar-sidebar">
-          <i class="fas fa-user"></i>
+    <div class="sidebar-user">
+      <img src="https://ui-avatars.com/api/?name=Juan+Sanchez&background=22CA95&color=fff&bold=true" 
+           alt="Usuario" class="user-avatar-sidebar">
+      <div class="user-info-sidebar">
+        <h3 id="sidebarUserName">Juan Sánchez</h3>
+        <p id="sidebarUserRole">Administrador</p>
+      </div>
+      <div class="add-btn" title="Nuevo" onclick="openNewProjectModal()">
+        <i class="fas fa-plus"></i>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-title">Módulos</div>
+      <a href="clientes.html" class="nav-item active">
+        <i class="fas fa-users"></i>
+        <span>Clientes</span>
+        <span class="nav-badge" id="navBadgeClientes">0</span>
+      </a>
+      <a href="servicios.html" class="nav-item">
+        <i class="fas fa-cogs"></i>
+        <span>Servicios</span>
+        <span class="nav-badge" id="navBadgeServicios">15</span>
+      </a>
+      <a href="cotizaciones.html" class="nav-item">
+        <i class="fas fa-file-contract"></i>
+        <span>Cotizaciones</span>
+        <span class="nav-badge" id="navBadgeCotizaciones">32</span>
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="version-info">
+        <div class="version-icon">
+          <i class="fas fa-rocket"></i>
         </div>
-        <div class="user-info-sidebar">
-          <h3 id="userName">Usuario</h3>
-          <p>Administrador</p>
+        <div class="version-text">
+          <h4>NexusCaster</h4>
+          <p>ver. 0.2.34</p>
         </div>
-        <button class="add-btn">
-          <i class="fas fa-plus"></i>
+        <button class="version-menu">
+          <i class="fas fa-ellipsis-h"></i>
         </button>
       </div>
+    </div>
+  </aside>
 
-      <nav class="sidebar-nav">
-        <div class="nav-section">
-          <div class="nav-section-title">Principal</div>
-          <a href="dashboard.html" class="nav-item">
-            <i class="fas fa-home"></i>
-            <span>Dashboard</span>
-          </a>
-          <a href="clientes.html" class="nav-item active">
-            <i class="fas fa-users"></i>
-            <span>Clientes</span>
-            <span class="nav-badge" id="clientesCount">0</span>
-          </a>
-          <a href="proyectos.html" class="nav-item">
-            <i class="fas fa-briefcase"></i>
-            <span>Proyectos</span>
-          </a>
-        </div>
-
-        <div class="nav-section">
-          <div class="nav-section-title">Herramientas</div>
-          <a href="cotizaciones.html" class="nav-item">
-            <i class="fas fa-file-invoice-dollar"></i>
-            <span>Cotizaciones</span>
-          </a>
-          <a href="facturas.html" class="nav-item">
-            <i class="fas fa-receipt"></i>
-            <span>Facturación</span>
-          </a>
-          <a href="reportes.html" class="nav-item">
-            <i class="fas fa-chart-bar"></i>
-            <span>Reportes</span>
-          </a>
-        </div>
-      </nav>
-
-      <div class="sidebar-footer">
-        <div class="version-info">
-          <div class="version-icon">
-            <i class="fas fa-rocket"></i>
-          </div>
-          <div class="version-text">
-            <h4>Nexus Pro v2.1</h4>
-            <p>Sistema actualizado</p>
-          </div>
-          <button class="version-menu">
-            <i class="fas fa-ellipsis-v"></i>
-          </button>
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-wrapper">
+    <header class="content-topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Buscar clientes..." id="searchInput">
         </div>
       </div>
-    </aside>
 
-    <!-- Contenido Principal -->
-    <main class="main-wrapper">
-      <!-- Topbar -->
-      <header class="content-topbar">
-        <div class="topbar-left">
-          <button class="menu-toggle">
-            <i class="fas fa-bars"></i>
+      <div class="topbar-right">
+        <div class="topbar-actions">
+          <button class="action-btn" title="Notificaciones" onclick="toggleNotifications()">
+            <i class="fas fa-bell"></i>
+            <span class="action-badge">3</span>
           </button>
-          <div class="search-bar">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="Buscar en el sistema...">
-          </div>
-        </div>
-        <div class="topbar-right">
-          <div class="topbar-actions">
-            <button class="action-btn">
-              <i class="fas fa-bell"></i>
-              <span class="action-badge">3</span>
-            </button>
-            <button class="action-btn">
-              <i class="fas fa-envelope"></i>
-              <span class="action-badge">5</span>
-            </button>
-          </div>
-          <button class="logout-btn" onclick="logout()">
-            <i class="fas fa-sign-out-alt"></i>
-            Salir
+          <button class="action-btn" title="Mensajes" onclick="toggleMessages()">
+            <i class="fas fa-envelope"></i>
+            <span class="action-badge">5</span>
+          </button>
+          <button class="action-btn" title="Configuración" onclick="window.location.href='settings.html'">
+            <i class="fas fa-cog"></i>
           </button>
         </div>
-      </header>
+        <button class="logout-btn" onclick="logout()">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </header>
 
-      <!-- Contenido de Clientes -->
-      <div class="dashboard-content">
-        <div class="clientes-container">
-          
-          <!-- Header de Clientes -->
-          <div class="clientes-header">
-            <div class="clientes-title">
-              <h1>Gestión de Clientes</h1>
-              <p>Administra y gestiona todos los clientes del sistema</p>
+    <div class="dashboard-content">
+      <div class="clientes-container">
+        <div class="clientes-header">
+          <div class="clientes-title">
+            <h1>Gestión de Clientes</h1>
+            <p>Administra y gestiona todos los clientes del sistema</p>
+          </div>
+          <div class="clientes-actions">
+            <button class="btn-primary" onclick="showAddForm()">
+              <i class="fas fa-plus"></i> Nuevo Cliente
+            </button>
+            <button class="btn-secondary" onclick="exportClientes()">
+              <i class="fas fa-download"></i> Exportar
+            </button>
+          </div>
+        </div>
+
+        <div class="clientes-card">
+          <div class="search-filters">
+            <div class="search-box">
+              <i class="fas fa-search search-icon"></i>
+              <input type="text" id="searchTableInput" placeholder="Buscar clientes por nombre, email o teléfono...">
             </div>
-            <div class="clientes-actions">
-              <button class="btn btn-primary" onclick="showAddForm()">
-                <i class="fas fa-plus"></i>
-                Nuevo Cliente
-              </button>
-              <button class="btn btn-secondary" onclick="exportClientes()">
-                <i class="fas fa-download"></i>
-                Exportar
-              </button>
+            <div class="filter-group">
+              <select class="filter-select" id="filterStatus">
+                <option value="">Todos los estados</option>
+                <option value="active">Activos</option>
+                <option value="inactive">Inactivos</option>
+              </select>
+              <select class="filter-select" id="filterDate">
+                <option value="">Todo el tiempo</option>
+                <option value="last30">Últimos 30 días</option>
+                <option value="last90">Últimos 90 días</option>
+              </select>
             </div>
           </div>
 
-          <!-- Tarjeta de Clientes -->
-          <div class="clientes-card">
-            
-            <!-- Barra de Búsqueda y Filtros -->
-            <div class="search-filters">
-              <div class="search-box">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" id="searchInput" placeholder="Buscar clientes por nombre, email o teléfono...">
-              </div>
-              <div class="filter-group">
-                <select class="filter-select" id="filterStatus">
-                  <option value="">Todos los estados</option>
-                  <option value="active">Activos</option>
-                  <option value="inactive">Inactivos</option>
-                </select>
-                <select class="filter-select" id="filterDate">
-                  <option value="">Todo el tiempo</option>
-                  <option value="last30">Últimos 30 días</option>
-                  <option value="last90">Últimos 90 días</option>
-                </select>
+          <div class="clientes-table-container">
+            <div class="table-header">
+              <h3>Lista de Clientes</h3>
+              <div class="table-stats">
+                <span class="stat-badge" id="totalClientes">Total: 0</span>
+                <span class="stat-badge" id="activeClientes">Activos: 0</span>
               </div>
             </div>
 
-            <!-- Tabla de Clientes -->
-            <div class="clientes-table-container">
-              <div class="table-header">
-                <h3>Lista de Clientes</h3>
-                <div class="table-stats">
-                  <span class="stat-badge" id="totalClientes">Total: 0</span>
-                  <span class="stat-badge" id="activeClientes">Activos: 0</span>
-                </div>
-              </div>
-              
-              <div class="table-wrapper">
-                <table class="clientes-table">
-                  <thead>
-                    <tr>
-                      <th>Nombre</th>
-                      <th>Email</th>
-                      <th>Teléfono</th>
-                      <th>Fecha Registro</th>
-                      <th>Estado</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody id="clientesTableBody">
-                    <!-- Los clientes se cargarán aquí dinámicamente -->
-                  </tbody>
-                </table>
-              </div>
+            <div class="table-wrapper">
+              <table class="clientes-table">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Fecha Registro</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="clientesTableBody">
+                </tbody>
+              </table>
             </div>
-
           </div>
 
         </div>
       </div>
-    </main>
-  </div>
+    </div>
+  </main>
 
-  <!-- Modal para Agregar/Editar Cliente -->
+  <!-- Modal Agregar/Editar -->
   <div id="clienteModal" class="modal-overlay" style="display: none;">
     <div class="modal-content">
       <div class="modal-header">
         <h3 id="modalTitle">Agregar Nuevo Cliente</h3>
-        <button class="close-modal" onclick="closeModal()">
-          <i class="fas fa-times"></i>
-        </button>
+        <button class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></button>
       </div>
-      
+
       <form id="clienteForm" class="clientes-form">
         <input type="hidden" id="clienteId">
-        
         <div class="form-grid">
           <div class="form-group">
             <label for="clienteNombre">Nombre completo *</label>
             <input type="text" id="clienteNombre" required placeholder="Ej: Juan Pérez">
           </div>
-          
           <div class="form-group">
             <label for="clienteEmail">Email *</label>
             <input type="email" id="clienteEmail" required placeholder="ejemplo@dominio.com">
           </div>
-          
           <div class="form-group">
             <label for="clienteTelefono">Teléfono</label>
             <input type="tel" id="clienteTelefono" placeholder="6000-0000">
           </div>
-          
           <div class="form-group">
             <label for="clienteFecha">Fecha de registro</label>
             <input type="date" id="clienteFecha" required>
           </div>
         </div>
-        
+
         <div class="form-actions">
           <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
           <button type="submit" class="btn btn-primary">Guardar Cliente</button>
@@ -243,327 +207,422 @@
     </div>
   </div>
 
-  <!-- Container para notificaciones Toast -->
   <div id="toastContainer" class="toast-container"></div>
 
-  <script>
-// Configuración de la base de datos
+<script>
+/* ======================
+   CONFIG y UTILIDADES
+   ====================== */
 const DB_PREFIX = 'FreelancerDB_';
 const CLIENTES_KEY = 'clientes';
 const USERS_KEY = 'users';
+const COTIZACIONES_KEY = 'cotizaciones';
 
-// Utilidades
-window.getAll = function(key){ 
-    try{ 
-        const data = localStorage.getItem(`${DB_PREFIX}${key}`) || '[]';
-        return JSON.parse(data); 
-    } catch(e){ return []; }
-};
-
-window.saveAll = function(key, arr){ 
-    localStorage.setItem(`${DB_PREFIX}${key}`, JSON.stringify(arr)); 
-};
-
-window.nextId = function(entity){ 
-    const k=`${DB_PREFIX}__id_${entity}`; 
-    let v=parseInt(localStorage.getItem(k)||'0',10); 
-    v++; 
-    localStorage.setItem(k,String(v)); 
-    return v; 
-};
-
-// Sincronizar usuarios como clientes
-function syncUsersToClients() {
-    const users = getAll(USERS_KEY);
-    const clientes = getAll(CLIENTES_KEY);
-    
-    users.forEach(user => {
-        // Verificar si el usuario ya existe como cliente
-        const clienteExists = clientes.some(cliente => 
-            cliente.email && cliente.email.toLowerCase() === user.email.toLowerCase()
-        );
-        
-        if (!clienteExists && user.email) {
-            // Crear cliente a partir del usuario
-            const nuevoCliente = {
-                id: nextId(CLIENTES_KEY),
-                nombre: user.nombre,
-                email: user.email,
-                telefono: user.telefono || '',
-                fecha_registro: user.fecha_registro || new Date().toISOString().split('T')[0],
-                estado: 'active',
-                cedula: user.cedula || '',
-                tipo: 'usuario_registrado'
-            };
-            
-            clientes.push(nuevoCliente);
-            console.log(`Cliente sincronizado: ${user.nombre}`);
-        }
-    });
-    
-    saveAll(CLIENTES_KEY, clientes);
+/* -- Funciones de "DB" (localStorage) -- */
+async function openDB() {
+  // placeholder para compatibilidad con otros entornos
+  return Promise.resolve();
 }
 
-// Mostrar notificación Toast
+async function getAll(key) {
+  try {
+    const raw = localStorage.getItem(`${DB_PREFIX}${key}`) || '[]';
+    return JSON.parse(raw);
+  } catch (e) {
+    console.error('Error parseando', key, e);
+    return [];
+  }
+}
+
+async function saveAll(key, arr) {
+  try {
+    localStorage.setItem(`${DB_PREFIX}${key}`, JSON.stringify(arr));
+  } catch (e) {
+    console.error('Error guardando', key, e);
+  }
+}
+
+async function addItem(key, item) {
+  const items = await getAll(key);
+  items.push(item);
+  await saveAll(key, items);
+}
+
+async function getItem(key, id) {
+  const items = await getAll(key);
+  return items.find(i => i.id == id);
+}
+
+async function deleteItem(key, id) {
+  const items = await getAll(key);
+  const filtered = items.filter(item => item.id != id);
+  await saveAll(key, filtered);
+}
+
+async function deleteByEmail(key, email) {
+  if (!email) return 0;
+  const items = await getAll(key);
+  const emailLower = email.toLowerCase();
+  const filtered = items.filter(item => !(item.email && item.email.toLowerCase() === emailLower));
+  await saveAll(key, filtered);
+  return items.length - filtered.length;
+}
+
+function nextId(entity) {
+  const k = `${DB_PREFIX}__id_${entity}`;
+  let v = parseInt(localStorage.getItem(k) || '0', 10);
+  v++;
+  localStorage.setItem(k, String(v));
+  return v;
+}
+
+/* ======================
+   SINCRONIZACIÓN users -> clientes
+   ====================== */
+async function syncUsersToClients() {
+  await openDB();
+  const users = await getAll(USERS_KEY);
+  const clientes = await getAll(CLIENTES_KEY);
+  let nuevos = 0;
+
+  for (const user of users) {
+    if (!user.email) continue;
+    const clienteExists = clientes.some(cliente =>
+      cliente.email && cliente.email.toLowerCase() === user.email.toLowerCase()
+    );
+
+    if (!clienteExists) {
+      const nuevoCliente = {
+        id: nextId(CLIENTES_KEY),
+        nombre: user.nombre || user.name || 'Cliente',
+        email: user.email,
+        telefono: user.telefono || '',
+        fecha_registro: user.fecha_registro || new Date().toISOString().split('T')[0],
+        estado: 'active',
+        tipo: 'usuario_registrado'
+      };
+      clientes.push(nuevoCliente);
+      nuevos++;
+    }
+  }
+
+  if (nuevos > 0) {
+    await saveAll(CLIENTES_KEY, clientes);
+  }
+  return nuevos;
+}
+
+/* ======================
+   TOAST
+   ====================== */
 function showToast(message, type = 'success') {
-    const toastContainer = document.getElementById('toastContainer');
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
-    toast.innerHTML = `
-        <div class="toast-icon">${type === 'success' ? '✓' : '!'}</div>
-        <div class="toast-message">${message}</div>
+  const toastContainer = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.innerHTML = `
+    <div class="toast-icon">${type === 'success' ? '✓' : '!'}</div>
+    <div class="toast-message">${message}</div>
+  `;
+  toastContainer.appendChild(toast);
+  setTimeout(() => toast.remove(), 4000);
+}
+
+/* ======================
+   RENDER TABLA
+   ====================== */
+function escapeHTML(str) {
+  if (str == null) return '';
+  return String(str).replace(/[&<>"']/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]
+  );
+}
+
+function renderClientesTable(clientes) {
+  const tbody = document.getElementById('clientesTableBody');
+  tbody.innerHTML = '';
+
+  if (!clientes || clientes.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6" style="text-align: center; padding: 2rem; color: #888;">
+          No se encontraron clientes
+        </td>
+      </tr>
     `;
-    
-    toastContainer.appendChild(toast);
-    
-    setTimeout(() => {
-        toast.remove();
-    }, 4000);
+    return;
+  }
+
+  clientes.forEach(cliente => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <div class="cliente-avatar" style="width: 36px; height: 36px; font-size: 14px; background: linear-gradient(135deg, #22CA95, #00D391); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+            ${escapeHTML((cliente.nombre || ' ').charAt(0).toUpperCase())}
+          </div>
+          <strong>${escapeHTML(cliente.nombre)}</strong>
+        </div>
+      </td>
+      <td>${escapeHTML(cliente.email)}</td>
+      <td>${escapeHTML(cliente.telefono || 'N/A')}</td>
+      <td>${escapeHTML(cliente.fecha_registro)}</td>
+      <td>
+        <span class="status-badge ${cliente.estado === 'active' ? 'status-active' : 'status-inactive'}">
+          ${cliente.estado === 'active' ? 'Activo' : 'Inactivo'}
+        </span>
+      </td>
+      <td>
+        <div class="actions-cell">
+          <button class="action-btn edit-btn" onclick="editCliente(${cliente.id})" title="Editar">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="action-btn delete-btn" onclick="deleteCliente(${cliente.id})" title="Eliminar">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
 }
 
-// Cargar y mostrar clientes
-function loadClientes() {
-    // Primero sincronizar usuarios existentes
-    syncUsersToClients();
-    
-    const clientes = getAll(CLIENTES_KEY);
-    const tbody = document.getElementById('clientesTableBody');
-    const totalClientes = document.getElementById('totalClientes');
-    const activeClientes = document.getElementById('activeClientes');
-    const clientesCount = document.getElementById('clientesCount');
-    
-    // Actualizar estadísticas
-    const activeCount = clientes.filter(c => c.estado === 'active').length;
-    totalClientes.textContent = `Total: ${clientes.length}`;
-    activeClientes.textContent = `Activos: ${activeCount}`;
-    clientesCount.textContent = clientes.length;
-    
-    // Renderizar tabla
-    tbody.innerHTML = '';
-    
-    if (clientes.length === 0) {
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="6" style="text-align: center; padding: 3rem; color: var(--stone);">
-                    <i class="fas fa-users" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
-                    <p>No hay clientes registrados</p>
-                    <button class="btn btn-primary" onclick="showAddForm()" style="margin-top: 1rem;">
-                        <i class="fas fa-plus"></i>
-                        Agregar Primer Cliente
-                    </button>
-                </td>
-            </tr>
-        `;
-        return;
-    }
-    
-    clientes.forEach(cliente => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>
-                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                    <div class="cliente-avatar" style="width: 36px; height: 36px; font-size: 14px;">
-                        ${cliente.nombre.charAt(0).toUpperCase()}
-                    </div>
-                    <strong>${escapeHTML(cliente.nombre)}</strong>
-                </div>
-            </td>
-            <td>${escapeHTML(cliente.email)}</td>
-            <td>${escapeHTML(cliente.telefono || 'N/A')}</td>
-            <td>${escapeHTML(cliente.fecha_registro)}</td>
-            <td>
-                <span class="status-badge ${cliente.estado === 'active' ? 'status-active' : 'status-inactive'}">
-                    ${cliente.estado === 'active' ? 'Activo' : 'Inactivo'}
-                </span>
-            </td>
-            <td>
-                <div class="actions-cell">
-                    <button class="action-btn edit-btn" onclick="editCliente(${cliente.id})" title="Editar">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="action-btn delete-btn" onclick="deleteCliente(${cliente.id})" title="Eliminar">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            </td>
-        `;
-        tbody.appendChild(tr);
-    });
+/* ======================
+   CARGAR CLIENTES
+   ====================== */
+async function loadClientes() {
+  console.log('🔄 Cargando clientes...');
+  await openDB();
+
+  // primero, sincronizar (importa nuevos usuarios como clientes si hay)
+  await syncUsersToClients();
+
+  // obtener clientes (estos son los que realmente se muestran)
+  const clientes = await getAll(CLIENTES_KEY);
+
+  // actualizar estadísticas
+  const totalClientes = document.getElementById('totalClientes');
+  const activeClientes = document.getElementById('activeClientes');
+  const clientesCount = document.getElementById('navBadgeClientes');
+
+  const activeCount = clientes.filter(c => c.estado === 'active').length;
+  totalClientes.textContent = `Total: ${clientes.length}`;
+  activeClientes.textContent = `Activos: ${activeCount}`;
+  if (clientesCount) clientesCount.textContent = clientes.length;
+
+  // renderizar
+  renderClientesTable(clientes);
 }
 
-// Funciones del modal
+/* ======================
+   MODAL / FORM
+   ====================== */
 function showAddForm() {
-    document.getElementById('modalTitle').textContent = 'Agregar Nuevo Cliente';
-    document.getElementById('clienteForm').reset();
-    document.getElementById('clienteId').value = '';
-    document.getElementById('clienteFecha').value = new Date().toISOString().split('T')[0];
-    document.getElementById('clienteModal').style.display = 'flex';
+  document.getElementById('modalTitle').textContent = 'Agregar Nuevo Cliente';
+  document.getElementById('clienteForm').reset();
+  document.getElementById('clienteId').value = '';
+  document.getElementById('clienteFecha').value = new Date().toISOString().split('T')[0];
+  document.getElementById('clienteModal').style.display = 'flex';
 }
 
-function editCliente(id) {
-    const clientes = getAll(CLIENTES_KEY);
-    const cliente = clientes.find(c => c.id == id);
-    
-    if (cliente) {
-        document.getElementById('modalTitle').textContent = 'Editar Cliente';
-        document.getElementById('clienteId').value = cliente.id;
-        document.getElementById('clienteNombre').value = cliente.nombre;
-        document.getElementById('clienteEmail').value = cliente.email;
-        document.getElementById('clienteTelefono').value = cliente.telefono || '';
-        document.getElementById('clienteFecha').value = cliente.fecha_registro;
-        document.getElementById('clienteModal').style.display = 'flex';
-    }
+async function editCliente(id) {
+  await openDB();
+  const clientes = await getAll(CLIENTES_KEY);
+  const cliente = clientes.find(c => c.id == id);
+  if (cliente) {
+    document.getElementById('modalTitle').textContent = 'Editar Cliente';
+    document.getElementById('clienteId').value = cliente.id;
+    document.getElementById('clienteNombre').value = cliente.nombre;
+    document.getElementById('clienteEmail').value = cliente.email;
+    document.getElementById('clienteTelefono').value = cliente.telefono || '';
+    document.getElementById('clienteFecha').value = cliente.fecha_registro;
+    document.getElementById('clienteModal').style.display = 'flex';
+  }
 }
 
 function closeModal() {
-    document.getElementById('clienteModal').style.display = 'none';
+  document.getElementById('clienteModal').style.display = 'none';
 }
 
-// Manejar envío del formulario
-document.getElementById('clienteForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const id = document.getElementById('clienteId').value;
-    const nombre = document.getElementById('clienteNombre').value.trim();
-    const email = document.getElementById('clienteEmail').value.trim().toLowerCase();
-    const telefono = document.getElementById('clienteTelefono').value.trim();
-    const fecha = document.getElementById('clienteFecha').value;
-    
-    // Validaciones
-    if (nombre.length < 3) {
-        showToast('El nombre debe tener al menos 3 caracteres', 'error');
+/* ======================
+   GUARDAR CLIENTE (nuevo/editar)
+   ====================== */
+document.getElementById('clienteForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  await openDB();
+
+  const id = document.getElementById('clienteId').value;
+  const nombre = document.getElementById('clienteNombre').value.trim();
+  const email = document.getElementById('clienteEmail').value.trim().toLowerCase();
+  const telefono = document.getElementById('clienteTelefono').value.trim();
+  const fecha = document.getElementById('clienteFecha').value;
+
+  if (nombre.length < 3) {
+    showToast('El nombre debe tener al menos 3 caracteres', 'error');
+    return;
+  }
+  if (!isValidEmail(email)) {
+    showToast('Email inválido', 'error');
+    return;
+  }
+
+  const clientes = await getAll(CLIENTES_KEY);
+
+  if (!id) {
+    if (clientes.some(c => c.email && c.email.toLowerCase() === email)) {
+      showToast('Ya existe un cliente con ese email', 'error');
+      return;
+    }
+
+    const nuevoCliente = {
+      id: nextId(CLIENTES_KEY),
+      nombre,
+      email,
+      telefono,
+      fecha_registro: fecha,
+      estado: 'active',
+      tipo: 'manual'
+    };
+    await addItem(CLIENTES_KEY, nuevoCliente);
+    showToast('Cliente creado exitosamente');
+  } else {
+    const index = clientes.findIndex(c => c.id == id);
+    if (index !== -1) {
+      if (clientes.some((c, i) => i !== index && c.email && c.email.toLowerCase() === email)) {
+        showToast('Otro cliente ya usa ese email', 'error');
         return;
+      }
+      clientes[index] = { ...clientes[index], nombre, email, telefono, fecha_registro: fecha };
+      await saveAll(CLIENTES_KEY, clientes);
+      showToast('Cliente actualizado exitosamente');
     }
-    
-    if (!isValidEmail(email)) {
-        showToast('Email inválido', 'error');
-        return;
-    }
-    
-    const clientes = getAll(CLIENTES_KEY);
-    
-    if (!id) {
-        // Crear nuevo cliente
-        if (clientes.some(c => c.email && c.email.toLowerCase() === email)) {
-            showToast('Ya existe un cliente con ese email', 'error');
-            return;
-        }
-        
-        const nuevoCliente = {
-            id: nextId(CLIENTES_KEY),
-            nombre: nombre,
-            email: email,
-            telefono: telefono,
-            fecha_registro: fecha,
-            estado: 'active',
-            tipo: 'manual'
-        };
-        
-        clientes.push(nuevoCliente);
-        saveAll(CLIENTES_KEY, clientes);
-        showToast('Cliente creado exitosamente');
-        
-    } else {
-        // Editar cliente existente
-        const index = clientes.findIndex(c => c.id == id);
-        if (index !== -1) {
-            // Verificar duplicado de email
-            if (clientes.some((c, i) => i !== index && c.email && c.email.toLowerCase() === email)) {
-                showToast('Otro cliente ya usa ese email', 'error');
-                return;
-            }
-            
-            clientes[index] = {
-                ...clientes[index],
-                nombre: nombre,
-                email: email,
-                telefono: telefono,
-                fecha_registro: fecha
-            };
-            
-            saveAll(CLIENTES_KEY, clientes);
-            showToast('Cliente actualizado exitosamente');
-        }
-    }
-    
-    closeModal();
-    loadClientes();
+  }
+  closeModal();
+  await loadClientes();
 });
 
-// Eliminar cliente
-function deleteCliente(id) {
-    if (!confirm('¿Estás seguro de que quieres eliminar este cliente?')) {
-        return;
+/* ======================
+   ELIMINAR CLIENTE (OPCION A: eliminar también en users)
+   ====================== */
+async function deleteCliente(id) {
+  if (!confirm('¿Estás seguro de que quieres eliminar este cliente?')) {
+    return;
+  }
+
+  try {
+    await openDB();
+    const clientes = await getAll(CLIENTES_KEY);
+    const index = clientes.findIndex(c => c.id == id);
+    if (index === -1) {
+      showToast('Cliente no encontrado', 'error');
+      return;
     }
-    
-    const clientes = getAll(CLIENTES_KEY).filter(c => c.id != id);
-    saveAll(CLIENTES_KEY, clientes);
-    showToast('Cliente eliminado exitosamente');
-    loadClientes();
+
+    // obtener email para eliminar también en users
+    const clienteEmail = clientes[index].email ? clientes[index].email.toLowerCase() : null;
+
+    // eliminar cliente de clientes[]
+    clientes.splice(index, 1);
+    await saveAll(CLIENTES_KEY, clientes);
+    console.log(`🗑️ Cliente ID ${id} eliminado de ${CLIENTES_KEY}`);
+
+    // si existe email, eliminar usuarios con ese email en USERS_KEY
+    if (clienteEmail) {
+      const users = await getAll(USERS_KEY);
+      const usersBefore = users.length;
+      const filteredUsers = users.filter(u => !(u.email && u.email.toLowerCase() === clienteEmail));
+      if (filteredUsers.length !== usersBefore) {
+        await saveAll(USERS_KEY, filteredUsers);
+        console.log(`🗑️ ${usersBefore - filteredUsers.length} usuario(s) eliminados en ${USERS_KEY} con email ${clienteEmail}`);
+      }
+    }
+
+    showToast('Cliente eliminado correctamente');
+    await loadClientes();
+  } catch (error) {
+    console.error('Error eliminando cliente:', error);
+    showToast('Error al eliminar el cliente', 'error');
+  }
 }
 
-// Exportar clientes
-function exportClientes() {
-    const clientes = getAll(CLIENTES_KEY);
-    const csv = 'Nombre,Email,Telefono,Fecha Registro,Estado\n' +
-        clientes.map(c => 
-            `"${c.nombre}","${c.email}","${c.telefono || ''}","${c.fecha_registro}","${c.estado}"`
-        ).join('\n');
-    
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `clientes_${new Date().toISOString().split('T')[0]}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
-    
-    showToast('Clientes exportados exitosamente');
+/* ======================
+   EXPORTAR
+   ====================== */
+async function exportClientes() {
+  await openDB();
+  const clientes = await getAll(CLIENTES_KEY);
+  const csv = 'Nombre,Email,Telefono,Fecha Registro,Estado\n' +
+    clientes.map(c =>
+      `"${(c.nombre||'').replace(/"/g,'""')}","${(c.email||'').replace(/"/g,'""')}","${(c.telefono||'').replace(/"/g,'""')}","${c.fecha_registro||''}","${c.estado||''}"`
+    ).join('\n');
+
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `clientes_${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+
+  showToast('Clientes exportados exitosamente');
 }
 
-// Funciones de utilidad
-function escapeHTML(str) {
-    if (str == null) return '';
-    return String(str).replace(/[&<>"']/g, c => 
-        ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]
-    );
+/* ======================
+   BÚSQUEDA EN TIEMPO REAL
+   ====================== */
+function setupSearch() {
+  const searchInput = document.getElementById('searchTableInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', async function(e) {
+      const searchTerm = e.target.value.toLowerCase();
+      await openDB();
+      const clientes = await getAll(CLIENTES_KEY);
+      const filtered = clientes.filter(cliente =>
+        (cliente.nombre && cliente.nombre.toLowerCase().includes(searchTerm)) ||
+        (cliente.email && cliente.email.toLowerCase().includes(searchTerm)) ||
+        (cliente.telefono && cliente.telefono.toLowerCase().includes(searchTerm))
+      );
+      renderClientesTable(filtered);
+    });
+  }
 }
 
+/* ======================
+   VALIDACIONES Y OTROS
+   ====================== */
 function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 function logout() {
-    if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
-        localStorage.removeItem('currentUser');
-        window.location.href = 'index.html';
-    }
+  if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('sessionUser');
+    window.location.href = 'index.html';
+  }
 }
 
-// Inicialización
-document.addEventListener('DOMContentLoaded', function() {
-    loadClientes();
-    
-    // Configurar búsqueda en tiempo real
-    document.getElementById('searchInput').addEventListener('input', function(e) {
-        // Implementar búsqueda en tiempo real aquí
-        console.log('Buscando:', e.target.value);
-    });
-    
-    // Cargar información del usuario actual
-    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    if (currentUser.nombre) {
-        document.getElementById('userName').textContent = currentUser.nombre;
-    }
-});
+function toggleSidebar() {
+  document.querySelector('.sidebar').classList.toggle('collapsed');
+}
+function irAlInicio() { window.location.href = 'dashboard.html'; }
+function toggleNotifications() { showToast('No hay nuevas notificaciones'); }
+function toggleMessages() { showToast('Sistema de mensajes en desarrollo'); }
+function openNewProjectModal() { showToast('Función de nuevo proyecto en desarrollo'); }
 
-// Manejar el toggle del sidebar en móviles
-document.querySelector('.menu-toggle').addEventListener('click', function() {
-    document.querySelector('.sidebar').classList.toggle('active');
+/* ======================
+   INICIALIZACIÓN
+   ====================== */
+document.addEventListener('DOMContentLoaded', async function() {
+  console.log('🚀 Inicializando gestión de clientes...');
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+  const sessionUser = JSON.parse(localStorage.getItem('sessionUser') || '{}');
+  const user = currentUser.nombre ? currentUser : sessionUser;
+  if (user.nombre) {
+    document.getElementById('sidebarUserName').textContent = user.nombre;
+  }
+  await loadClientes();
+  setupSearch();
 });
-  </script>
-
-  <!-- Font Awesome para iconos -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</script>
 </body>
 </html>
